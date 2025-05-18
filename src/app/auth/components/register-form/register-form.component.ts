@@ -20,7 +20,8 @@ export class RegisterFormComponent {
   @ViewChild('captchaElem') captchaElem!: InvisibleReCaptchaComponent;
 
   registerForm: FormGroup;
-  siteKey: string = '6LfRmz4rAAAAAB7-HKxgq9MmSl5fWSvwyPyRG7ta';
+  //siteKey: string = '6LfRmz4rAAAAAB7-HKxgq9MmSl5fWSvwyPyRG7ta';
+  siteKey: string = '6LdYvT4rAAAAACYx6ilgRE6DRjnc1xbbKwimZ2at';
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
