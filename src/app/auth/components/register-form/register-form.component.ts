@@ -39,7 +39,7 @@ export class RegisterFormComponent {
       const { email, password } = this.registerForm.value;
       this.auth.register(email, password)
         .then((result) => {
-          alert('✅ Cuenta creada con éxito');
+          alert('✅ Cuenta creada con éxito, Revice su correo electronico, falta validacion',);
           console.log('Usuario:', result);
         })
         .catch((err) => {
