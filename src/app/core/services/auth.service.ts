@@ -1,49 +1,48 @@
-import { Injectable } from "@angular/core";
-import { delay, Observable, of, tap, throwError } from "rxjs";
+import { Injectable, signal } from '@angular/core';
+import { supabase } from '../supabase.client';
 
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly TOKEN_KEY = 'auth_token';
-  private readonly USERNAME_KEY = 'auth_username';
+  private sessionSignal = signal<any>(null);
 
-  private mockUser = {
-    username: 'admin',
-    email: 'admin@demo.com',
-    password: '123456',
-    token: 'FAKE_TOKEN_123'
-  };
-
-  login(identifier: string, password: string): Observable<string> {
-    const valid =
-      (identifier === this.mockUser.username || identifier === this.mockUser.email) &&
-      password === this.mockUser.password;
-
-    if (!valid) {
-      return throwError(() => new Error('Credenciales inválidas')).pipe(delay(500));
-    }
-
-    return of(this.mockUser.token).pipe(
-      delay(1000),
-      tap(() => {
-        localStorage.setItem(this.TOKEN_KEY, this.mockUser.token);
-        localStorage.setItem(this.USERNAME_KEY, this.mockUser.username);
-      })
-    );
+  constructor() {
+    this.loadSession();
+    supabase.auth.onAuthStateChange((_event, session) => {
+      this.sessionSignal.set(session);
+    });
   }
 
-  logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USERNAME_KEY);
+  async register(email: string, password: string) {
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+    return data;
+  }
+
+  async login(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    this.sessionSignal.set(data.session);
+  }
+
+  async logout() {
+    await supabase.auth.signOut();
+    this.sessionSignal.set(null);
+  }
+
+  get session() {
+    return this.sessionSignal();
+  }
+
+  get currentUser() {
+    return this.sessionSignal()?.user ?? null;
+  }
+
+  private async loadSession() {
+    const { data } = await supabase.auth.getSession();
+    this.sessionSignal.set(data.session);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
-  }
-
-  getUsername(): string | null {
-    return localStorage.getItem(this.USERNAME_KEY);
+    return !!this.sessionSignal();
   }
 }

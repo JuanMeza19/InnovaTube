@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { NgxCaptchaModule, InvisibleReCaptchaComponent } from 'ngx-captcha';
 
 @Component({
   selector: 'app-register-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgxCaptchaModule
+  ],
   templateUrl: './register-form.component.html'
 })
 export class RegisterFormComponent {
-  registerForm: FormGroup;
-  recaptchaToken: string | null = null;
+  @ViewChild('captchaElem') captchaElem!: InvisibleReCaptchaComponent;
 
-  constructor(private fb: FormBuilder) {
+  registerForm: FormGroup;
+  siteKey: string = '6LfRmz4rAAAAAB7-HKxgq9MmSl5fWSvwyPyRG7ta'; // 🔑 Usa la clave generada en https://www.google.com/recaptcha/admin
+
+  constructor(private fb: FormBuilder, private auth: AuthService) {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
@@ -26,18 +34,22 @@ export class RegisterFormComponent {
       ? null : { mismatch: true };
   }
 
-  onRegister() {
+  onRegister(): void {
     if (this.registerForm.valid) {
-      const payload = {
-        ...this.registerForm.value,
-        recaptchaToken: this.recaptchaToken
-      };
-      console.log('Registro enviado:', payload);
+      const { email, password } = this.registerForm.value;
+      this.auth.register(email, password)
+        .then((result) => {
+          alert('✅ Cuenta creada con éxito');
+          console.log('Usuario:', result);
+        })
+        .catch((err) => {
+          alert('❌ Error: ' + err.message);
+        });
     }
   }
 
-  onCaptchaResolved(token: string) {
-    this.recaptchaToken = token;
+  handleCaptchaSuccess(token: string): void {
     this.registerForm.get('recaptcha')?.setValue(token);
   }
 }
+

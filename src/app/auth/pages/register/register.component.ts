@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { RegisterFormComponent } from '../../components/register-form/register-form.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  standalone: true,
+  imports: [CommonModule, RegisterFormComponent],
+  template: `<app-register-form></app-register-form>`,
+
 })
 export class RegisterPageComponent {
 

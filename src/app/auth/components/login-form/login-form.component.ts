@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
   @Component({
     selector: 'app-login-form',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
-  @Output() login = new EventEmitter<{ identifier: string; password: string }>();
+  @Output() login = new EventEmitter<{ email: string; password: string }>();
 
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      identifier: ['', Validators.required], // correo o usuario
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }

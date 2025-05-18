@@ -15,7 +15,7 @@ export class NavbarComponent {
   username: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.username = this.authService.getUsername();
+    this.username = this.authService.currentUser?.email;
   }
 
   toggleMobileMenu() {
