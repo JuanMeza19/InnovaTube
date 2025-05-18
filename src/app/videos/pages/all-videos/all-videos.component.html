@@ -1,0 +1,23 @@
+<!-- src/app/pages/all-videos/all-videos.component.html -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div *ngFor="let video of videos()" class="bg-white rounded-lg shadow-md overflow-hidden">
+      <video controls [poster]="video.image" class="w-full h-64 object-cover">
+        <source [src]="video.video_files[0]?.link" type="video/mp4" />
+      </video>
+  
+      <div class="p-4 flex justify-between items-center">
+        <p class="text-sm text-gray-600">Duración: {{ video.duration }}s</p>
+        <button
+          class="text-xl transition"
+          (click)="favoritesService.toggleFavorite(video)"
+          [ngClass]="{
+            'text-red-500': favoritesService.isFavorite(video.id),
+            'text-gray-400': !favoritesService.isFavorite(video.id)
+          }"
+        >
+          {{ favoritesService.isFavorite(video.id) ? '❤️' : '🤍' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

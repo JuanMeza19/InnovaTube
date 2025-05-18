@@ -1,0 +1,29 @@
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Tus videos favoritos</h1>
+  
+    <div *ngIf="favoritesService.favorites().length === 0" class="text-gray-500">
+      No tienes favoritos todavía.
+    </div>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        *ngFor="let video of favoritesService.favorites()"
+        class="bg-white rounded-lg shadow-md overflow-hidden"
+      >
+        <video controls [poster]="video.image" class="w-full h-64 object-cover">
+          <source [src]="video.video_files[0]?.link" type="video/mp4" />
+        </video>
+  
+        <div class="p-4 flex justify-between items-center">
+          <p class="text-sm text-gray-600">Duración: {{ video.duration }}s</p>
+          <button
+            class="text-xl text-red-500"
+            (click)="favoritesService.removeFavorite(video.id)"
+          >
+            💔
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

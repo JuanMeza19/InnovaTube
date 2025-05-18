@@ -1,0 +1,55 @@
+<!-- NAV WRAPPER -->
+<nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between h-auto py-2">
+        <!-- Logo + botón móvil -->
+        <div class="flex items-center justify-between w-full sm:w-auto">
+        <div class="sm:hidden">
+            <button type="button"
+                    class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
+                    (click)="toggleMobileMenu()">
+              <svg *ngIf="!mobileMenuOpen" class="block size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <svg *ngIf="mobileMenuOpen" class="block size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+  
+        <div class="w-full sm:flex sm:items-center sm:justify-between">
+           <div class="flex items-center text-white font-bold text-lg">
+             InnovaTube
+          </div>
+          <div class="sm:flex sm:items-center sm:justify-between" [class.hidden]="!mobileMenuOpen && isMobile()">
+          <div class="flex flex-col sm:flex-row sm:space-x-4 mt-3 sm:mt-0">
+            <a routerLink="/videos"
+               class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+               routerLinkActive="bg-gray-900">
+              All Videos
+            </a>
+            <a routerLink="/videos/favorites"
+               class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+               routerLinkActive="bg-gray-900">
+              Like Videos
+            </a>
+          </div>
+          </div>
+          <div class="flex items-center mt-3 sm:mt-0 sm:ml-4">
+            <span class="text-white text-sm mr-4">Hola, {{ username }}</span>
+            <button (click)="logout()"
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  

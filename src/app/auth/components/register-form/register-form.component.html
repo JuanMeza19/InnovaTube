@@ -1,0 +1,16 @@
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <input type="text" formControlName="name" placeholder="Nombre" />
+    <input type="text" formControlName="lastname" placeholder="Apellido" />
+    <input type="text" formControlName="username" placeholder="Nombre de usuario" />
+    <input type="email" formControlName="email" placeholder="Correo electrónico" />
+    <input type="password" formControlName="password" placeholder="Contraseña" />
+    <input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña" />
+  
+    <re-captcha 
+      siteKey="TU_SITE_KEY_DE_RECAPTCHA"
+      (resolved)="onCaptchaResolved($event)">
+    </re-captcha>
+  
+    <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+  </form>
+  

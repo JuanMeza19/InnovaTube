@@ -1,0 +1,42 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+  <div class="w-full max-w-sm bg-white rounded-lg shadow-md p-8 space-y-6">
+    <!-- Logo -->
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-indigo-600">InnovaTube</h1>
+      <p class="text-sm text-gray-500 mt-1">Inicia sesión para continuar</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="identifier" class="block text-sm font-medium text-gray-700">Correo o nombre de usuario</label>
+        <input
+          type="text"
+          id="identifier"
+          formControlName="identifier"
+          placeholder="ej: juan@gmail.com"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="••••••••"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
+</div>
