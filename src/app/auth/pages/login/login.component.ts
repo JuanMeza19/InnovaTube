@@ -20,7 +20,7 @@ export class LoginPageComponent {
       await this.authService.login(email, password);
       this.router.navigate(['/videos']);
     } catch (err) {
-      alert('Login inválido');
+      alert('Login inválido | Falta verificar correo');
     }
   } 
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { NgxCaptchaModule, InvisibleReCaptchaComponent } from 'ngx-captcha';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -10,7 +11,8 @@ import { NgxCaptchaModule, InvisibleReCaptchaComponent } from 'ngx-captcha';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    RouterModule,
   ],
   templateUrl: './register-form.component.html'
 })
@@ -18,9 +20,9 @@ export class RegisterFormComponent {
   @ViewChild('captchaElem') captchaElem!: InvisibleReCaptchaComponent;
 
   registerForm: FormGroup;
-  siteKey: string = '6LfRmz4rAAAAAB7-HKxgq9MmSl5fWSvwyPyRG7ta'; // 🔑 Usa la clave generada en https://www.google.com/recaptcha/admin
+  siteKey: string = '6LfRmz4rAAAAAB7-HKxgq9MmSl5fWSvwyPyRG7ta';
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -40,6 +42,7 @@ export class RegisterFormComponent {
       this.auth.register(email, password)
         .then((result) => {
           alert('✅ Cuenta creada con éxito, Revice su correo electronico, falta validacion',);
+          this.router.navigate(['/auth/login']);
           console.log('Usuario:', result);
         })
         .catch((err) => {
