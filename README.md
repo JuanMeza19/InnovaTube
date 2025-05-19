@@ -1,59 +1,142 @@
-# InnovaTube
+# 📺 Innova Tube
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+**Innova Tube** es una aplicación web moderna desarrollada con Angular 19. Su propósito es gestionar usuarios y contenido en video, permitiendo registros, autenticación, verificación mediante ReCaptcha y visualización de videos. Todo está estilizado con Tailwind CSS para una experiencia de usuario rápida y responsive.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Tecnologías usadas
 
-```bash
-ng serve
+* **[Angular 19](https://angular.io/)** – Framework principal de frontend
+* **[Supabase](https://supabase.com/)** – Backend como servicio para autenticación y base de datos
+* **[Tailwind CSS 4](https://tailwindcss.com/)** – Utilidades CSS modernas y configurables
+* **[ngx-captcha](https://www.npmjs.com/package/ngx-captcha)** – Captcha de Google para verificación
+* **RxJS** – Programación reactiva
+* **TypeScript** – Tipado estricto y productivo
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── auth/         # Componentes de login, registro y autenticación
+│   ├── core/         # Servicios base como AuthService (manejo de sesión Supabase)
+│   ├── shared/       # Componentes reutilizables, utilidades y diseño común
+│   ├── videos/       # Funcionalidad para gestión y visualización de videos
+├── index.html        # Entrada principal del proyecto
+├── styles.css        # Estilos base con Tailwind CSS
+└── ...
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🔧 Instalación y uso
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 1. Clona el repositorio
 
 ```bash
-ng generate --help
+git clone https://github.com/tu-usuario/innova-tube.git
+cd innova-tube
 ```
 
-## Building
-
-To build the project run:
+### 2. Instala las dependencias
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Configura Supabase
 
-## Running unit tests
+Edita el archivo `supabase.client.ts` y agrega tu URL y Public Key:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+```ts
+import { createClient } from '@supabase/supabase-js';
+
+export const supabase = createClient(
+  'https://<tu-proyecto>.supabase.co',
+  'public-anon-key'
+);
+```
+
+> 🛡️ Asegúrate de que la tabla **auth.users** en Supabase tenga habilitado el proveedor de correo/contraseña y los settings de autenticación estén activos.
+
+### 4. Ejecuta el proyecto
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+La app estará corriendo en:
+👉 `http://localhost:4200`
 
-For end-to-end (e2e) testing, run:
+---
+
+## ✅ Funcionalidades principales
+
+* Registro de usuarios con correo y contraseña
+* Inicio de sesión persistente con Supabase
+* Cierre de sesión
+* Protección de rutas con guardas (CanActivate)
+* Validación con Google ReCaptcha
+* Visualización de contenido en video
+* Componentes y estilos adaptativos con Tailwind CSS
+
+---
+
+## 🧪 Scripts disponibles
+
+| Comando         | Descripción                       |
+| --------------- | --------------------------------- |
+| `npm start`     | Ejecuta el servidor de desarrollo |
+| `npm run build` | Compila la app para producción    |
+| `npm run watch` | Compila y observa cambios         |
+| `npm test`      | Ejecuta pruebas unitarias         |
+
+---
+
+## 🌐 Despliegue
+
+Puedes desplegar este proyecto fácilmente en:
+
+* **Firebase Hosting**
+* **Vercel**
+* **Netlify**
+* **Render**
+
+Solo asegúrate de compilar la app antes de desplegar:
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Y subir el contenido de la carpeta `/dist`.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📸 Capturas (opcional)
+
+*Agrega aquí screenshots de:*
+
+* Pantalla de login
+* Registro
+* Pantalla principal de videos
+* Flujo de validación con ReCaptcha
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT.
+Consulta el archivo `LICENSE` para más información.
+
+---
+
+## ✨ Autor
+
+**Juan Meza**
+GitHub: [@JuanMeza19](https://github.com/JuanMeza19)
+
+---
+
+> Hecho con ❤️ usando Angular, Supabase y Tailwind CSS.
