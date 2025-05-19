@@ -46,22 +46,9 @@ cd innova-tube
 npm install
 ```
 
-### 3. Configura Supabase
-
-Edita el archivo `supabase.client.ts` y agrega tu URL y Public Key:
-
-```ts
-import { createClient } from '@supabase/supabase-js';
-
-export const supabase = createClient(
-  'https://<tu-proyecto>.supabase.co',
-  'public-anon-key'
-);
-```
-
 > 🛡️ Asegúrate de que la tabla **auth.users** en Supabase tenga habilitado el proveedor de correo/contraseña y los settings de autenticación estén activos.
 
-### 4. Ejecuta el proyecto
+### 3. Ejecuta el proyecto
 
 ```bash
 npm start
