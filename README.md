@@ -125,6 +125,12 @@ Y subir el contenido de la carpeta `/dist`.
 
 ---
 
+# Regitrar usuario ejemplo
+correo: userName@test.com
+password: password
+
+---
+
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT.
